@@ -72,7 +72,4 @@ create_using=nx.DiGraph() que indica que o grafo a ser criado é direcionado (Di
 
 #### Algoritmo de Torjan 
 
-O algoritmo de Tarjan encontra componentes fortemente conexos em grafos direcionados. Um CFC é um subgrafo onde todos os nós são acessíveis entre si. O algoritmo usa uma busca em profundidade (DFS) para visitar os nós e mantém três estruturas principais: uma pilha para rastrear os nós visitados, um índice para cada nó indicando a ordem de visita, e um valor baixo que representa o menor índice acessível a partir do nó.
-Durante a exploração, o algoritmo atualiza os valores baixos com base nos vizinhos. Quando o índice de um nó é igual ao seu valor baixo, isso indica a raiz de um CFC. Nesse ponto, ele remove os nós da pilha até voltar ao nó raiz, formando um CFC.
-O processo se repete para todos os nós do grafo, garantindo que todos os CFCs sejam identificados. O algoritmo é eficiente, funcionando em tempo linear O(V + E), onde V é o número de vértices e E é o número de arestas.
-
+O algoritmo de Tarjan encontra componentes fortemente conexos (CFCs) em grafos direcionados usando uma busca em profundidade (DFS). Ele rastreia os nós visitados com uma pilha, mantém um índice para a ordem de visita e um valor baixo para o menor índice acessível. Quando o índice de um nó é igual ao seu valor baixo, ele identifica a raiz de um CFC e remove os nós da pilha até voltar à raiz, formando o CFC. O processo é repetido para todos os nós, e o algoritmo tem complexidade linear O(V + E), onde V é o número de vértices e E é o número de arestas.
