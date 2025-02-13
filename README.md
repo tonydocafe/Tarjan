@@ -43,6 +43,7 @@ create_using=nx.DiGraph() que indica que o grafo a ser criado é direcionado (Di
 - g.neighbors(no) retorna uma lista de nós vizinhos do nó atual.
 - o condicional if vizinho not in indices verifica se o vizinho ainda não foi visitado.
 - a chamada recursiva funcao(vizinho) é chamada para explorar o vizinho.
+
 - ultimos[no] é atualizado com o menor valor entre ultimos[no] e ultimos[vizinho].
 - a condicional elif vizinho in visitados verifica se o vizinho está na lista de nós visitados.
 - ultimos[no] é atualizado com o menor valor entre ultimos[no] e indices[vizinho].
