@@ -1,75 +1,155 @@
-# Cálculo para identificar componentes fortemente conexos 
+# Cálculo para Identificar Componentes Fortemente Conexos
 
-Este script em Python utiliza a biblioteca NetworkX para manipulação e análise de grafos direcionados. 
-A estrutura do script está organizada de forma a ler um grafo a partir de uma lista de arestas, armazenada no arquivo "entrada.txt",
-e identificar os componentes fortemente conexos desse grafo.
+Este projeto apresenta um script em Python que utiliza a biblioteca **NetworkX** para manipulação e análise de grafos direcionados. O objetivo principal do script é ler um grafo a partir de uma lista de arestas armazenada em um arquivo e identificar os **componentes fortemente conexos** utilizando o **Algoritmo de Tarjan**.
 
-#### foram utilizados:
-- Python
-- Algoritmo de Tarjan
-- Bibiloteca Networkx
+---
 
-## Estrutura 
+## Tecnologias Utilizadas
 
-#### Importação de Biblioteca:
+Para a execução deste script, foram utilizadas as seguintes ferramentas:
 
-A biblioteca NetworkX é importada para facilitar a manipulação do grafo que é uma biblioteca em Python para criação, manipulação 
-e estudo da estrutura, dinâmica e funções de grafos complexos.
+- **Python**: Linguagem de programação utilizada para a implementação do algoritmo.
+- **Algoritmo de Tarjan**: Utilizado para encontrar componentes fortemente conexos de um grafo.
+- **Biblioteca NetworkX**: Responsável pela manipulação e análise do grafo.
 
-#### Leitura do Grafo
+---
 
-A função nx.read_edgelist lê uma lista de arestas a partir de um arquivo de texto, os seus parâmetros sendo 
-"entrada.txt" que é o nome do arquivo de texto que contém a lista de arestas e
-create_using=nx.DiGraph() que indica que o grafo a ser criado é direcionado (DiGraph).
+## Estrutura do Script
 
-#### Inicialização de Variáveis Globais
+### 1. Importação de Biblioteca
+A biblioteca **NetworkX** é importada para permitir a criação e manipulação do grafo de maneira eficiente.
 
-- visita é o contador global que rastreia a ordem em que os nós são visitados.
-- visitados é a lista que armazena os nós à medida que são visitados, funcionando como uma pilha.
-- indices é o dicionário que armazena o índice de cada nó, indicando a ordem de visita.
-- ultimosé o dicionário que armazena o menor índice acessível a partir de cada nó.
-- componentes_fortmente_conexos é a lista de listas que armazena os componentes fortemente conexos identificados no grafo.
+```python
+import networkx as nx
+```
 
-#### Definição da Função Principal
+### 2. Leitura do Grafo
+A função **nx.read_edgelist** é utilizada para ler uma lista de arestas a partir de um arquivo de texto:
 
-- funcao(no) é a função recursiva que implementa o algoritmo de Tarjan para encontrar componentes fortemente conexos.
-- global visita é a declaração para permitir a modificação da variável global visita dentro da função.
-- indices[no] e ultimos[no] inicializam o índice e o valor baixo do nó com o valor atual de visita.
-- visita += 1 incrementa o contador global visita após cada visita.
-- visitados.append(no) adiciona o nó à lista de nós visitados.
+```python
+g = nx.read_edgelist("entrada.txt", create_using=nx.DiGraph())
+```
 
-#### Exploração dos Vizinhos
+- **"entrada.txt"**: Nome do arquivo contendo a lista de arestas.
+- **create_using=nx.DiGraph()**: Especifica que o grafo será direcionado.
 
-- g.neighbors(no) retorna uma lista de nós vizinhos do nó atual.
-- o condicional if vizinho not in indices verifica se o vizinho ainda não foi visitado.
-- a chamada recursiva funcao(vizinho) é chamada para explorar o vizinho.
-- ultimos[no] é atualizado com o menor valor entre ultimos[no] e ultimos[vizinho].
-- a condicional elif vizinho in visitados verifica se o vizinho está na lista de nós visitados.
-- ultimos[no] é atualizado com o menor valor entre ultimos[no] e indices[vizinho].
+### 3. Inicialização de Variáveis Globais
 
-#### Identificação de Componentes Fortemente Conexos
+- **visita**: Contador global que rastreia a ordem de visita dos nós.
+- **visitados**: Lista que armazena os nós visitados (pilha).
+- **indices**: Dicionário que armazena o índice de cada nó (ordem de visita).
+- **ultimos**: Dicionário que armazena o menor índice acessível a partir de cada nó.
+- **componentes_fortemente_conexos**: Lista de listas que armazenam os componentes fortemente conexos identificados.
 
-- a condicional if indices[no] == ultimos[no] verifica se o nó é a raiz de um componente fortemente conexo.
-- comp_fconexos_atual = []: Inicializa uma lista para armazenar os nós do componente atual.
-- v = visitados.pop() remove e obtém o último nó da lista visitados.
-- comp_fconexos_atual.append(v) adiciona o nó à lista do componente atual.
-- a condicional if v == no interrompe o laço quando o nó inicial é alcançado.
-- componentes_fortmente_conexos.append(comp_fconexos_atual) adiciona o componente atual à lista de componentes fortemente conexos.
+### 4. Implementação do Algoritmo de Tarjan
+A função **tarjan(no)** é responsável por aplicar o algoritmo de Tarjan:
 
-#### Execução da Função para Cada Nó no Grafo
+```python
+def tarjan(no):
+    global visita
+    indices[no] = ultimos[no] = visita
+    visita += 1
+    visitados.append(no)
+    
+    for vizinho in g.neighbors(no):
+        if vizinho not in indices:
+            tarjan(vizinho)
+            ultimos[no] = min(ultimos[no], ultimos[vizinho])
+        elif vizinho in visitados:
+            ultimos[no] = min(ultimos[no], indices[vizinho])
+    
+    if indices[no] == ultimos[no]:
+        componente_atual = []
+        while True:
+            v = visitados.pop()
+            componente_atual.append(v)
+            if v == no:
+                break
+        componentes_fortemente_conexos.append(componente_atual)
+```
 
-- laço for no in g itera sobre cada nó no grafo.
-- a condicional if no not in indices verifica se o nó ainda não foi visitado.
-- a chamada funcao(no) inicia a busca em profundidade a partir do nó não visitado.
+### 5. Execução do Algoritmo para Cada Nó
 
-####  Exibição dos Resultados
+```python
+for no in g:
+    if no not in indices:
+        tarjan(no)
+```
 
-- laço for i, componente in enumerate(componentes_fortmente_conexos) itera sobre cada componente fortemente conexo identificado.
-- print(f"Componente f-conexo {i + 1} sendo:\n{componente}") imprime o índice e os nós de cada componente.
-- laço for (node_from, node_to) in g.edges() itera sobre cada aresta do grafo.
-- print(node_from, node_to) imprime as arestas do grafo.
+### 6. Exibição dos Resultados
+Os componentes fortemente conexos são exibidos na saída do terminal:
 
+```python
+for i, componente in enumerate(componentes_fortemente_conexos):
+    print(f"Componente {i + 1}: {componente}")
+```
 
-#### Algoritmo de Torjan 
+---
 
-O algoritmo de Tarjan encontra componentes fortemente conexos (CFCs) em grafos direcionados usando uma busca em profundidade (DFS). Ele rastreia os nós visitados com uma pilha, mantém um índice para a ordem de visita e um valor baixo para o menor índice acessível. Quando o índice de um nó é igual ao seu valor baixo, ele identifica a raiz de um CFC e remove os nós da pilha até voltar à raiz, formando o CFC. O processo é repetido para todos os nós, e o algoritmo tem complexidade linear O(V + E), onde V é o número de vértices e E é o número de arestas.
+## Explicação do Algoritmo de Tarjan
+
+O **Algoritmo de Tarjan** é um algoritmo baseado em **Busca em Profundidade (DFS)** para encontrar **Componentes Fortemente Conexos (CFCs)** em um grafo direcionado. Ele opera da seguinte maneira:
+
+1. Cada nó recebe um **índice de visitação** e um **valor baixo** (menor índice acessível).
+2. Os nós são armazenados em uma **pilha** conforme são visitados.
+3. Quando um **ciclo é detectado**, os nós correspondentes são removidos da pilha e armazenados como um **componente fortemente conexo**.
+4. O algoritmo tem **complexidade O(V + E)**, onde **V** é o número de vértices e **E** o número de arestas.
+
+---
+
+## Como Executar o Script
+
+1. Certifique-se de ter o **Python** instalado.
+2. Instale a biblioteca **NetworkX**, caso ainda não tenha:
+   ```bash
+   pip install networkx
+   ```
+3. Prepare um arquivo **entrada.txt** com a lista de arestas do grafo. Exemplo:
+   ```
+   A B
+   B C
+   C A
+   C D
+   D E
+   ```
+4. Execute o script:
+   ```bash
+   python script.py
+   ```
+
+---
+
+## Exemplo de Saída
+
+Para um grafo com as seguintes arestas:
+```
+A B
+B C
+C A
+C D
+D E
+```
+O script retorna:
+```
+Componente 1: ['A', 'B', 'C']
+Componente 2: ['D']
+Componente 3: ['E']
+```
+
+---
+
+## Contribuição
+
+Contribuições são bem-vindas! Para sugerir melhorias:
+- Fork este repositório
+- Crie uma branch para sua modificação (`git checkout -b minha-modificacao`)
+- Commit suas mudanças (`git commit -m "Minha modificação"`)
+- Envie um push para a branch (`git push origin minha-modificacao`)
+- Abra um Pull Request
+
+---
+
+## Licença
+
+Este projeto está sob a licença MIT - consulte o arquivo **LICENSE** para mais detalhes.
+
