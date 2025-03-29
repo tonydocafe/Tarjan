@@ -13,7 +13,6 @@ Para a execução deste script, foram utilizadas as seguintes ferramentas:
 - **Biblioteca NetworkX**: Responsável pela manipulação e análise do grafo.
 
 ---
-
 ## Estrutura do Script
 
 ### 1. Importação de Biblioteca
