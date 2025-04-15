@@ -40,3 +40,6 @@ def funcao(g, no)
     @componentes_fortemente_conexos << componente_atual
   end
 end
+g.each_vertex do |no|
+  funcao(g, no) unless @indices.key?(no)
+end
