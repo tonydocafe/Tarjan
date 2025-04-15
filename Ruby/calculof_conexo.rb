@@ -14,3 +14,18 @@ end
 @indices = {}
 @ultimos = {}
 @componentes_fortemente_conexos = []
+
+def funcao(g, no)
+  @indices[no] = @visita
+  @ultimos[no] = @visita
+  @visita += 1
+  @visitados << no
+
+  g.adjacent_vertices(no).each do |vizinho|
+    if !@indices.key?(vizinho)
+      funcao(g, vizinho)
+      @ultimos[no] = [@ultimos[no], @ultimos[vizinho]].min
+    elsif @visitados.include?(vizinho)
+      @ultimos[no] = [@ultimos[no], @indices[vizinho]].min
+    end
+  end
