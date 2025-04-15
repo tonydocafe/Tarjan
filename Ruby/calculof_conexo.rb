@@ -43,3 +43,6 @@ end
 g.each_vertex do |no|
   funcao(g, no) unless @indices.key?(no)
 end
+@componentes_fortemente_conexos.each_with_index do |componente, i|
+  puts "Componente f-conexo #{i + 1} sendo:\n#{componente}"
+end
