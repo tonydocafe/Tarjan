@@ -29,3 +29,14 @@ def funcao(g, no)
       @ultimos[no] = [@ultimos[no], @indices[vizinho]].min
     end
   end
+  
+ if @indices[no] == @ultimos[no]
+    componente_atual = []
+    loop do
+      v = @visitados.pop
+      componente_atual << v
+      break if v == no
+    end
+    @componentes_fortemente_conexos << componente_atual
+  end
+end
