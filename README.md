@@ -2,7 +2,7 @@
 
 Você curte algoritmos de grafos e quer descobrir os segredos mais profundos (ou fortemente conexos 😄) de um grafo? Então senta aí, pega um café e vem curtir esse projetinho com a gente!
 
-Este projeto traz **duas versões** do lendário **Algoritmo de Tarjan**, uma em **Python** com a poderosa `NetworkX`, e outra em **Ruby**, com a simpática `rgl`. Ambas buscam descobrir os **componentes fortemente conexos (CFCs)** de um grafo dirigido.
+Este projeto traz **3 versões** do lendário **Algoritmo de Tarjan**, uma em **Python** com a poderosa `NetworkX`, em **Ruby**, com a simpática `rgl`e em **Java** usando a biblioteca [JGraphT](https://jgrapht.org/). . Ambas buscam descobrir os **componentes fortemente conexos (CFCs)** de um grafo dirigido.
 
 ---
 
@@ -17,6 +17,11 @@ Este projeto traz **duas versões** do lendário **Algoritmo de Tarjan**, uma em
 - 💎 **Ruby**
 - 🔍 **Algoritmo de Tarjan**
 - 🧠 **RGL (Ruby Graph Library)** — pequena, mas poderosa!
+- 
+### Java Edition
+- **Java 8+**
+- **NetBeans IDE**
+- **[JGraphT 1.5.1](https://search.maven.org/artifact/org.jgrapht/jgrapht-core/1.5.1/jar)**
 
 ---
 
