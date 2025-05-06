@@ -6,8 +6,8 @@ g = nx.read_edgelist("entrada.txt", create_using=nx.DiGraph())
 
 visita = 0
 visitados = []
-indices = {}#dicionário para rastrear os índices dos nós
-ultimos = {}#dicionário para rastrear os ultimos valores visitados dos nós
+indices = {}
+ultimos = {}
 componentes_fortmente_conexos = []
 
 
