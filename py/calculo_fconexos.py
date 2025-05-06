@@ -4,8 +4,8 @@ import networkx as nx
 g = nx.read_edgelist("entrada.txt", create_using=nx.DiGraph())
 
 
-visita = 0 #variável para rastrear a ordem de visita dos nós
-visitados = []#lista para manter os nós visitados
+visita = 0
+visitados = []
 indices = {}#dicionário para rastrear os índices dos nós
 ultimos = {}#dicionário para rastrear os ultimos valores visitados dos nós
 componentes_fortmente_conexos = []#lista para armazenar os componentes fortemente conexos
