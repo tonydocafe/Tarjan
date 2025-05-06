@@ -16,7 +16,7 @@ def funcao(no):
     indices[no] = visita
     ultimos[no] = visita
     visita += 1
-    visitados.append(no)#.append adiciona o no em visitados. 
+    visitados.append(no)
 
     for vizinho in g.neighbors(no):
         if vizinho not in indices:
