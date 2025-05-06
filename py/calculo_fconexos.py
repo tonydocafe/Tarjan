@@ -8,7 +8,7 @@ visita = 0
 visitados = []
 indices = {}#dicionário para rastrear os índices dos nós
 ultimos = {}#dicionário para rastrear os ultimos valores visitados dos nós
-componentes_fortmente_conexos = []#lista para armazenar os componentes fortemente conexos
+componentes_fortmente_conexos = []
 
 
 def funcao(no):
@@ -18,7 +18,7 @@ def funcao(no):
     visita += 1
     visitados.append(no)#.append adiciona o no em visitados. 
 
-    for vizinho in g.neighbors(no):#(neighbors traduzido é vizinhos)é um metodo da biblioteca networkx
+    for vizinho in g.neighbors(no):
         if vizinho not in indices:
             funcao(vizinho)
             ultimos[no] = min(ultimos[no], ultimos[vizinho])
@@ -28,7 +28,7 @@ def funcao(no):
     if indices[no] == ultimos[no]:
         comp_fconexos_atual = []
         while True:
-            v = visitados.pop()#.pop remove ultimo elemento de visitados, armazena o ultimo elemento em v. 
+            v = visitados.pop()
             comp_fconexos_atual.append(v)
             if v == no:
                 break
