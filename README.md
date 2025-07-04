@@ -7,6 +7,7 @@ Este projeto traz **3 versões** do lendário **Algoritmo de Tarjan**, uma em **
 ---
 
 
+
 ## 💪 Tecnologias Utilizadas
 
 ### Python Edition
